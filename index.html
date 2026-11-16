@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/rocket2.png">
+    <link rel="stylesheet" href="style.css">
+    <title>Space Shooter</title>
+</head>
+<body>
+    
+    <div class="main-layout">
+        
+        
+        <div class="info-sidebar">
+            <h2>🚀 Eclipse of the Stars</h2>
+            <p>Welcome to the Ultimate Space Shooter!</p>
+            <h3>Game Controls:</h3>
+            <ul>
+                <li><strong>Arrow Keys:</strong> Move Rocket</li>
+                <li><strong>Spacebar:</strong> Fire Laser</li>
+            </ul>
+            <p>Please press Start before enabling Fullscreen</p>
+            <p>Press Esc to exit Fullscreen mode</p>
+            <p>Shoot down as many asteroids as possible!</p>
+            <p>🎶Retro Arcade Game Music 🎶Artist: Monume</p>
+        </div>
+
+        
+        <div id="game-container"></div>
+
+        
+        <div class="side-controls">
+            <button class="btn btn-danger" onclick="location.reload()">Start</button>
+            <button class="btn btn-warning" onclick="togglePause(this)">Pause</button>
+            <button class="btn" onclick="toggleFullscreen()">🖥️ Fullscreen</button>
+        </div>
+
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
+    <script src="gameloop.js"></script>
+
+    
+    <script>
+        let isPaused = false;
+
+        function togglePause(btn) {
+            if (!isPaused) {
+                app.ticker.stop();
+                if (typeof backgroundMusic !== 'undefined') backgroundMusic.pause();
+                btn.textContent = 'Pause';
+                isPaused = true;
+            } else {
+                app.ticker.start();
+                if (typeof backgroundMusic !== 'undefined') backgroundMusic.play().catch(() => {});
+                btn.textContent = 'Stopp';
+                isPaused = false;
+            }
+        }
+
+        function toggleFullscreen() {
+            const canvas = document.querySelector('#game-container canvas') || document.querySelector('canvas');
+            if (!document.fullscreenElement) {
+                if (canvas.requestFullscreen) {
+                    canvas.requestFullscreen();
+                } else if (canvas.webkitRequestFullscreen) {
+                    canvas.webkitRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
+        
+    </script>   
+    
+    <script src="gameloop.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.x/dist/pixi.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
+
+
+
